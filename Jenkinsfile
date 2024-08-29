@@ -89,9 +89,10 @@ pipeline {
             }
         }
 
+
         stage('Docker Image Scan') {
             steps {
-                sh "trivy image --format table -o trivy-image-report.html csbasic/boardshack:latest "
+                sh "trivy image --format table -o trivy-image-report.html csbasic/boardshack:latest > trivyimage.txt "
             }
         }
 
