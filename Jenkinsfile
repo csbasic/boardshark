@@ -92,7 +92,7 @@ pipeline {
 
         stage('Docker Image Scan') {
             steps {
-                sh "trivy image --format table -o trivy-image-report.html csbasic/boardshack:latest > trivyimage.txt "
+                sh "trivy image --format table -o trivy-image-report.html csbasic/boardshark:latest "
             }
         }
 
@@ -100,7 +100,7 @@ pipeline {
             steps {
                script {
                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                            sh "docker push csbasic/boardshack:latest"
+                            sh "docker push csbasic/boardshark:latest"
                     }
                }
             }
