@@ -18,7 +18,9 @@ pipeline {
         }
 
         stage('Git Checkout') {
-            git branch: 'main', credentialsId: 'jenkins-sonarqube-webhook-token', url: 'https://github.com/csbasic/Boardgame.git'
+            steps {
+                git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/csbasic/boardshark.git'
+            }
         }
         
 
@@ -41,14 +43,16 @@ pipeline {
         }
         
         stage('SonarQube Analysis') {
-            script {
-                withSonarQubeEnv('sonar-jenkins-token') { // using sonar plugin - sonar is already set with credentials 
-                    sh ''' 
-                    $SCANNER_HOME/bin/sonar-scanner \
-                    -Dsonar.projectName=BoardGame \
-                    -Dsonar.projectKey=BoardGame \
-                    -Dsonar.java.binaries=.
-                    '''
+            steps{
+                script {
+                    withSonarQubeEnv('sonar-jenkins-token') { // using sonar plugin - sonar is already set with credentials 
+                        sh ''' 
+                        $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectName=BoardGame \
+                        -Dsonar.projectKey=BoardGame \
+                        -Dsonar.java.binaries=.
+                        '''
+                    }
                 }
             }
         }
