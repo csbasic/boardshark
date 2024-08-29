@@ -45,12 +45,12 @@ pipeline {
         stage('SonarQube Analysis') {
             steps{
                 script {
-                    withSonarQubeEnv('sonar-jenkins-token') { // using sonar plugin - sonar is already set with credentials 
+                    withSonarQubeEnv('sonar') { // using sonar plugin - sonar is already set with credentials 
                         sh ''' 
-                        $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=BoardGame \
-                        -Dsonar.projectKey=BoardGame \
-                        -Dsonar.java.binaries=.
+                            $SCANNER_HOME/bin/sonar-scanner \
+                            -Dsonar.projectName=BoardGame \
+                            -Dsonar.projectKey=BoardGame \
+                            -Dsonar.java.binaries=.
                         '''
                     }
                 }
